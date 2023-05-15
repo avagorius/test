@@ -77,7 +77,6 @@ Remark: in RStudio, the `install.packages` command can be launched very easily b
  
 ## Installing the package `tinytex` in R and the TinyTex distribution
 
-If you want to generate PDF output, you will need to install LaTeX. For R Markdown users who have not installed LaTeX before, it is recommended that you install TinyTeX (https://yihui.name/tinytex/), which is a lightweight, portable, cross-platform, and easy-to-maintain LaTeX distribution.  
 
 First you can install the `tinytex` package:
 ```{r tinytex1,eval=FALSE}
