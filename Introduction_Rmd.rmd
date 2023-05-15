@@ -1,0 +1,222 @@
+---
+output:
+  html_document:
+    number_sections: yes
+    toc: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+  word_document:
+    toc: yes
+---
+<!---
+Program  : Exemple.Rmd
+Author   : M. Baragatti (SupAgro-MISTEA)
+Objective: Introduction Rmarkdown
+Creation : 13/02/2021
+Update   : 13/02/2021
+-->
+---
+title: "Computer configuration and introduction to R Markdown"
+author: "M. Baragatti"
+date: "Septembre 2022"
+output: html_document
+---
+
+
+***
+
+# Softwares
+
+R is a comprehensive statistical environment and programming language for professional data analysis and graphical display. It is free, and very widely used by statisticians, but it is also very popular in certain application areas, including biology. R is a dynamically typed interpreted language, and is typically used interactively. It has many built-in functions and libraries, and is extensible, allowing users to define their own functions and procedures using R, C or Fortran. It also has a simple object system. 
+
+RStudio is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management. It is a set of integrated tools designed to help you be more productive with R and Python.
+RStudio is available in open source and commercial editions and runs on the desktop (Windows, Mac, and Linux) or in a browser connected to RStudio Server or RStudio Server Pro (Debian/Ubuntu, Red Hat/CentOS, and SUSE Linux). 
+RStudio is not required but recommended, because it makes it easier for an average user to work with R and R Markdown. 
+
+During the statistical lessons and practical sessions, we will work with R and RStudio. 
+
+Finally, to be able to produce reproducible reports that include R codes and results, you can use R markdown. R Markdown is a file format for making dynamic documents with R. An R Markdown document is written in markdown (an easy-to-write plain text format) and contains chunks of embedded R code. To use R markdown, a latex distribution should be installed on your computer, to be able to compile latex code. 
+<!-- BEWARE, for Rstudio to be able to make the link with your latex compilator, it should be installed after the latex compilator.  -->
+If no latex compilator is installed, you will be able to compile (knit) your document in html or in word, but not in pdf.  
+
+In summary, the configuration of your computer must be done in the following order: install R, install RStudio, install the packages `rmarkdown` and `tinytex` in R, then the TinyTex distribution.
+
+## Installing R
+
+* On the R project website (http://www.r-project.org/), choose `CRAN` in the part `Download, Packages`.
+* On the CRAN website, choose a french mirror (the closer from you the better).
+* In the part `Download and install R` you need to choose your operating system.
+* **If your operating system is Windows:** choose `base`, download the last version of R for Windows then the executable will install itself by double-clicking. 
+* **If your operating system is Mac OS X:** download the the last version of R for Mac, then the executable will install itself by double-clicking. Depending on your browser, you may need to press the control key and click on this link to download the file.
+* **If your operating system is Linux:** you need to choose which system you are using, the steps to install R are then detailed. Or you can use a package manager, like Synaptic Package Manager in Ubuntu, to automatically install R. In the manager, search for `r-base` and install it.
+* In case of problem, on the part `Documentation` you can click on `Manuals`. The manual `R installation and administration` will give you many details.
+
+<!-- ## Installing a latex compilator -->
+
+<!-- Here are some suggestions for free latex compilators: -->
+
+<!-- * For Windows, macOS or linux: TinyTeX: this distribution seems to be very simple for R users, as it can be installed through R using the command `intall.packages`, see https://yihui.org/tinytex/. -->
+<!-- * For Windows: MiKTeX : https://miktex.org/download. -->
+<!-- * For macOS: MacTeX : http://www.tug.org/mactex/. -->
+<!-- * For linux: Texmaker for instance. Usually a latex distribution is installed by default in linux systems. You can also install one using a package manager, like the Synaptic Package Manager or the Software center in Ubuntu. -->
+
+## Installing Rstudio
+
+You can go on the site https://www.rstudio.com/products/rstudio/. You have to choose to download the open source edition of Rstudio Desktop. You can find the file corresponding to your system in the list.  
+For Windows the file is an installator, you just have to double-click on it to launch it.  
+For linux and Mac, you should follow your usual procedure to install softwares (usually you just have to double-click and follow the instructions).
+
+## Installing the package `rmarkdown` in R. 
+
+The CRAN is the the repository of R packages managed by the R core team. This is where the majority of R packages are made publicly available. To install a package from one of the CRAN mirrors, you just have to make sure you are connected to the internet, start an R session and run the following command in R: `install.packages("namePkg")`.  To install `rmarkdown`, copy this line in the console (bottom-left window):
+```{r rmarkdown,eval=FALSE}
+install.packages('rmarkdown')
+``` 
+Remark: in RStudio, the `install.packages` command can be launched very easily by clicking on the `Install` button in the `Packages` framework (you will then be guided).
+ 
+## Installing the package `tinytex` in R and the TinyTex distribution
+
+If you want to generate PDF output, you will need to install LaTeX. For R Markdown users who have not installed LaTeX before, it is recommended that you install TinyTeX (https://yihui.name/tinytex/), which is a lightweight, portable, cross-platform, and easy-to-maintain LaTeX distribution.  
+
+First you can install the `tinytex` package:
+```{r tinytex1,eval=FALSE}
+install.packages('tinytex')
+install.packages('agricolae') 
+``` 
+Then, install the TinyTex distribution:
+```{r tinytex2,eval=FALSE}
+tinytex::install_tinytex()
+``` 
+
+
+# Introduction to R Markdown
+
+The dataset used in this document as an example can be found in the following book: *Mixed effects models and extensions in ecology with R. A. Zuur, E.N. Ieno, N. Walker, A.A. Saveliev and G.M. Smith, Springer, 2009*.   You should place this dataset `Squid.txt` in the same folder than this R Markdown document.
+
+* If you click on "knit to pdf", a pdf document will be generated and saved in the same folder than this R Markdown document.
+* If you click on the icon "knit to html", a HTML document will be generated and saved in the same folder than this R Markdown document.
+* If you click on the icon "knit to word", a word document will be generated  and saved in the same folder than this R Markdown document.
+
+You can examine the following codes and syntax and compare them to the associated to the generated outputs (in pdf, html or word), to understand how R and R Markdown work together.
+
+## How to organise a R Markdown document
+
+### Sections, Subsections and Paragraphs
+
+The sections and subsections are intriduced by \# and \#\# respectively. The numerotation is done automatically.  
+You have to finish a line by two spaces to include a line break and begin a new line.
+If you do not put two spaces, the same line is continued.
+
+You can also skip a line (leave a blank line), then a new paragraph begins.
+
+You can write in *italic*, in **bold**, or in font used for `R code`.
+
+
+### Lists
+
+To make an unordered list, each item of the list is introduced by '+' or '*'. A blank line should be positioned before the list.
+
+* Item number 1
+* Item number 2
+* Item number 3
+* Item number 4
+
+For an ordered list, each item of the list should be introduced by '1.'. The numerotation is done automatically. Beware, if a R chunk is included in one of the item, this chunk shoul be right indented (see an example in the following section).
+
+1. Item number 1
+1. Item number 2
+1. Item number 3
+1. Item number 4
+
+
+## Introduction of R code, R outputs and R plots
+
+### Syntax 
+
+The R code is included in a chunk. R code chunks can be used to render R output into documents or to simply display code for illustration. There are many possibility for a chunk:
+
+* Evaluate the R code or no (option `eval=TRUE` or `FALSE`)
+* Display the code or no (option `echo=TRUE` or `FALSE`).
+* Do not include R output (option `results='hide'`).
+* Do not include R messages (option `message=FALSE`).
+* Do not include R warnings (option `message=FALSE`).
+* Do not include R plots (option `include=FALSE`).
+* And many other possibilities, see the references at the end of this document.
+* For each of these options, default values are determined, see the references.
+
+Concerning the plots, if a R code produces a plot, this plot will be included in the document (except if `include=FALSE`). We can customize the dimensions of the plot using for instance `fig.width=8, fig.height=8`. Then, we can also specify if we want the plot to be saved. Indeedn if the option `fig.path='images/'` is included in the chunk, then the plots will be saved in the folder `images` (this folder `images` should be in the same folder than our Rmarkdown document). The names of plots will be those of the chunk in which the plots are generated, followed by a number (1 for the first plot, 2 for the second,...).
+
+
+### Chunk examples
+
+We load the dataset into R, using the file `Squid.txt` (this file should be in the same folder than this document RMarkdown). Here is a simple R code chunk that will result in the code being displayed, but not the output:
+```{r data,results='hide',message=FALSE, warning=FALSE}
+    Squid <- read.table(file = "Squid.txt", header = TRUE, sep = "\t")  
+    str(Squid)
+    Squid$fMONTH=factor(Squid$MONTH)
+``` 
+
+
+1. Exemple in which the code is evaluated but not displayed, and the output is displayed.
+    ```{r exemple1,echo=FALSE,results='show'}
+        M1 <- lm(Testisweight ~ DML*fMONTH, data=Squid)
+        anova(M1)
+    ``` 
+    
+1. Exemple in which the code is evaluated and displayed, and the output is not displayed.
+    ```{r exemple2,results='hide'}
+        M2 <- lm(Testisweight ~ DML + fMONTH, data=Squid)
+        anova(M1,M2)
+    ``` 
+    
+1. Exemple in which the code is evaluated but not displayed, and the output is not displayed. As the code is evaluated, R will keep in memory the created objects and can re-use them later. here for instance `M3`,which will be used in the following chunk.
+    ```{r exemple3,echo=FALSE,results='hide'}
+        M3 <- lm(Testisweight ~ DML, data=Squid)
+        summary(M3)
+    ``` 
+
+1. Exemple in which the code is not displayed, and the output is displayed (the code is evaluatd, as in example 1).
+    ```{r exemple4,echo=FALSE,results='show'}
+        anova(M3,M1)
+    ``` 
+    
+1. Exemple in which the code is displayed but not evaluatedHence here the object `M4` is not created, R can not use it later.
+    ```{r exemple5,echo=TRUE,eval=FALSE}
+        M4 <- lm(Testisweight ~ fMONTH, data=Squid)
+        summary(M4)
+    ``` 
+    
+1. Exemple in which neither the code not the output is displayed, and the code is not evaluated (in practice this kind of chunk can be used as "draft" when we develop the R code). No object is created. 
+    ```{r exemple6,echo=FALSE,eval=FALSE}
+        library(nlme)
+        M.lm<-gls(Testisweight~DML*fMONTH,data=Squid)
+        # Je peux écrire n'importe quoi, commentaire R
+    ``` 
+
+1. First plot: here we will save it, and we give its dimensions. The code is displayed, warnings and messages are not displayed, and the plot is included (we did not specify `include=FALSE`).
+    ```{r exemple7,fig.path='images/',fig.width=8, fig.height=8,message=FALSE, warning=FALSE}
+    par(mfrow=c(2,2))
+    plot(M1, which=c(1,2), caption="")
+    plot(resid(M1) ~ Squid$fMONTH, xlab="Month",ylab="Residuals")
+    plot(resid(M1) ~Squid$DML,xlab="DML",ylab="Residuals")
+    ```
+
+## Formules mathématiques
+
+Test de formule dans le texte $\widehat{\alpha_i}=100$. bla bla bla.  
+Quelques signes mathématiques: $\sim \mathcal{N}(0,\sigma^2), x^2, \sum_{i=1}^{100}, \pi, \prod_{i=1}^{100}$.  
+Et une formule avec saut à la ligne et centrée:
+$$
+Y_{ijk}=\mu + \alpha_i + \beta_j + \gamma{ij} + \epsilon_{ijk}
+$$
+
+
+
+## References
+
+1. Tutoriel on Rmarkdown. URL http://www.jacolienvanrij.com/Tutorials/tutorialMarkdown.html.
+1. Online course on Rmarkdown. You need to create an account, but it is free. URL https://www.datacamp.com/courses/reporting-with-r-markdown/?utm_source=launch_blog&utm_medium=blog&utm_content=R%20Markdown%20Launch&utm_campaign=R%20Markdown%20Launch.
+1. R markdown cheat sheet. URL http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf
+1. R markdown tutorial; URL https://www.markdowntutorial.com/.
+
